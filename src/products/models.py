@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse # Check get_absolute_url() below.
 # Create your models here.
 # The 'products/' app job as an app will be to store products infomation in the backend of this site.
 # The code below is the DB Model (or blueprint) for the DataBase.
@@ -72,4 +72,10 @@ class Product(models.Model): # 'models.Model' Means from the models module impor
     """
 
     def get_absolute_url(self):
+        # Comment next to code below is doing string substitution. 
+        # Look at 'products/templates/product_list.html'
+        # For the reverse() function remember the 'name' param in products/urls.py>?
+        #  That's why you name your path!
+        # "products:product-detail" is somehow linked to 'products/urls.py' like so:
+        #   'app_name:path_name' which is what 'from django.urls import reverse' is for.
         return reverse("products:product-detail", kwargs={"id": self.id}) #f"/products/{self.id}/"

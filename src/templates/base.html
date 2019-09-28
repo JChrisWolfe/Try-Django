@@ -4,9 +4,29 @@
     <title>Coding for Entrepreneurs is doing Try Django</title>
 </head>
 <body>
-   {% include 'navbar.html' %}
+    <!--
+        From: https://docs.djangoproject.com/en/2.2/topics/templates/
 
-   {% block content %}
+        A Django project can be configured with one or several template engines
+         (or even zero if you don’t use templates). Django ships built-in backends
+          for its own template system, creatively called the Django template
+           language (DTL), and for the popular alternative Jinja2. Backends
+            for other template languages may be available from third-parties.
+
+        Django defines a standard API for loading and rendering templates
+         regardless of the backend. Loading consists of finding the template
+          for a given identifier and preprocessing it, usually compiling it to
+           an in-memory representation. Rendering means interpolating the template
+            with context data and returning the resulting string.
+
+        The Django template language is Django’s own template system.
+
+        Checkout 'templates/about.html' to get idea.
+    -->
+
+   {% include 'navbar.html' %} <!-- Add the contents of navbar.html into this page. -->
+
+   {% block content %} <!-- This is the area the block that will be replaced with content from other blocks that has these blocks [block content][endblock]. Other pages will have an [extends 'base.html'] with [block content][endblock] after them. Can't use '{}' '%' together in an HTML comment. -->
     replace me
    {% endblock %} 
 

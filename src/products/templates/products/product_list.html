@@ -5,6 +5,7 @@
 
 
 {% for instance in object_list %}
+     <!-- Refer to products/models.py to understand the '.get_absolute_url'-->
      <p>{{ instance.id }} - <a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></p>
 {% endfor %}
 

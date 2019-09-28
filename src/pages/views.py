@@ -2,6 +2,21 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render
+"""
+render()¶
+    render(request, template_name, context=None, content_type=None, status=None, using=None)
+
+    [Context here in this project is the {} or will be name 'my_context'.
+     Basically the third param is a dictionary to send to the HTML pages.]
+    
+    Source: https://docs.djangoproject.com/en/2.2/_modules/django/shortcuts/#render
+
+    Combines a given template with a given context dictionary and returns an
+     HttpResponse object with that rendered text.
+
+    Django does not provide a shortcut function which returns a TemplateResponse
+     because the constructor of TemplateResponse offers the same level of convenience as render().
+"""
 
 """
 This site provide a best explantion and example of *args and **kwargs: https://www.geeksforgeeks.org/args-kwargs-python/ check it out for the actual examples.
@@ -23,12 +38,34 @@ This site provide a best explantion and example of *args and **kwargs: https://w
         One can think of the kwargs as being a dictionary that maps each keyword to the value that we pass alongside it. That is why when we iterate over the kwargs there doesn’t seem to be any order in which they were printed out.
 """
 
-# Create your views here.
+# Create your views here. Register your view into urls.py
 def home_view(request, *args, **kwargs): # *args, **kwargs
-    print(args, kwargs)
-    print(request.user)
+    print(args, kwargs) # Using return HttpResponse the two values printed out are WSGI Request and GET method.
+    print(request.user) # Tells what user (like guest, admin, or anonymous) made the request. Try display this page in incogito mode to see output.
     #return HttpResponse("<h1>Hello World</h1>") # string of HTML code
     return render(request, "home.html", {})
+
+"""
+From: https://www.fullstackpython.com/wsgi-servers.html
+
+A Web Server Gateway Interface (WSGI) server implements the web server side of the WSGI interface for running Python web applications.
+
+Why use WSGI and not just point a web server directly at an application?
+    WSGI gives you flexibility. Application developers can swap out web stack components for others. For example, a developer can switch from Green Unicorn to uWSGI without modifying the application or framework that implements WSGI. From http://www.python.org/dev/peps/pep-3333/
+
+    WSGI servers promote scaling. Serving thousands of requests for dynamic content at once is the domain of WSGI servers, not frameworks. WSGI servers handle processing requests from the web server and deciding how to communicate those requests to an application framework's process. The segregation of responsibilities is important for efficiently scaling web traffic.
+
+WSGI is by design a simple standard interface for running Python code. As a web developer you won't need to know much more than:
+    what WSGI stands for (Web Server Gateway Inteface)
+
+    that a WSGI container is a separate running process that runs on a different port than your web server [like in Django the page run in this virualenv is on port 8000 by default. http://127.0.0.1].
+
+    your web server is configured to pass requests to the WSGI container which runs your web application, then pass the response (in the form of HTML) back to the requester
+
+If you're using a standard web framework such as Django, Flask, or Bottle, or almost any other current Python framework, you don't need to worry about how frameworks implement the application side of the WSGI standard. Likewise, if you're using a standard WSGI container such as Green Unicorn, uWSGI, mod_wsgi, or gevent, you can get them running without worrying about how they implement the WSGI standard.
+
+However, knowing the WSGI standard and how these frameworks and containers implement WSGI should be on your learning checklist though as you become a more experienced Python web developer.
+"""
 
 def contact_view(request, *args, **kwargs):
     return render(request, "contact.html", {})

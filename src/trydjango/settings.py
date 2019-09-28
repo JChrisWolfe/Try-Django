@@ -62,7 +62,20 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
+    # From: https://docs.djangoproject.com/en/2.2/ref/csrf/
+# Cross Site Request Forgery protection¶
+#     The CSRF middleware and template tag provides easy-to-use protection against Cross Site
+#     Request Forgeries (https://www.squarefree.com/securitytips/web-developers.html#CSRF).
+#     This type of attack occurs when a malicious website contains a link, a form button or some
+#     JavaScript that is intended to perform some action on your website, using the credentials
+#     of a logged-in user who visits the malicious site in their browser. A related type of
+#     attack, ‘login CSRF’, where an attacking site tricks a user’s browser into logging into
+#     a site with someone else’s credentials, is also covered.
+
+#     The first defense against CSRF attacks is to ensure that GET requests (and other ‘safe’ methods, as defined by RFC 7231#section-4.2.1[https://tools.ietf.org/html/rfc7231.html#section-4.2.1]) are side effect free.
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -73,7 +86,16 @@ ROOT_URLCONF = 'trydjango.urls' # How Django knows to route any given URLs.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+
+        
+        # From: https://docs.djangoproject.com/en/2.2/topics/templates/
+        # Being a web framework, Django needs a convenient way to generate HTML dynamically.
+        #  The most common approach relies on templates. A template contains the static 
+        #  parts of the desired HTML output as well as some special syntax describing how 
+        #  dynamic content will be inserted.
+       
+
+        'DIRS': [os.path.join(BASE_DIR, "templates")], # Here is 'DIRS' is where you manually set the path to your 'templates/' folder.
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

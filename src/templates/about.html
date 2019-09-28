@@ -3,10 +3,15 @@
 {% block content %}
 <h1>About</h1>
 
-<h3>{{ title }}</h3>
+<h3>{{ title }}</h3> <!-- Basic idea: The 'title' key of the my_context dictionary in about_view function. The value of the key will be displayed here. Every HTML page you will see follows the same logic.-->
 <p>This is a template</p>
 
 {{ my_html|safe }}
+<!-- 
+Source: https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#safe
+safe¶
+    Marks a string as not requiring further HTML escaping prior to output. When autoescaping is off, this filter has no effect.
+-->
 
 <p>
 , {{ my_number }}
@@ -19,9 +24,10 @@
 </ul>
 
 <ul>
-{% for abc in my_list %}
-    {% if abc == 312 %}
-        <li>{{ forloop.counter }} - {{ abc|add:22 }}</li>
+<!-- Refer to: https://docs.djangoproject.com/en/2.2/ref/templates/builtins/ --> 
+{% for abc in my_list %} <!-- This is a DTL's built-in for loop tag. Source: https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-for --><!-- Looks like Python's for loop doesn't it ;)-->
+    {% if abc == 312 %} <!--DTL's Built-in if tags. Source: https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#if -->
+        <li>{{ forloop.counter }} - {{ abc|add:22 }}</li> <!--'forloop.counter' is a template variable use for loop comment reference above and https://docs.djangoproject.com/en/2.2/ref/templates/language/#template-variables. 'abc|add:22' is using what is called a filter, Takes in the value of 'abc' and inputs(filters) it into the 'add' filter to show the result of abc+22. Source: https://docs.djangoproject.com/en/2.2/ref/templates/language/#filters-->
     {% elif abc == "Abc" %}
         <li>This is not the network</li>
     {% else %}
